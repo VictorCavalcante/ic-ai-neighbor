@@ -1,0 +1,30 @@
+# compiled output
+/dist
+/tmp
+/out-tsc
+
+# dependencies
+/angular-client/node_modules
+/angular-client/package-lock.json
+/express-server/node_modules
+/express-server/package-lock.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+
+# misc
+npm-debug.log
+/typings
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
