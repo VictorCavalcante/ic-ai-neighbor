@@ -1,8 +1,7 @@
 // ./angular-client/src/app/app.component.ts
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component} from '@angular/core';
 
-import { TodoService } from './todo/todo.service';
+import {TodoService} from './todo/todo.service';
 
 @Component({
   selector: 'app-root',
