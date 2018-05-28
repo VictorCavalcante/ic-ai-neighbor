@@ -12,7 +12,7 @@ export class AppComponent {
   title = 'app';
   constructor(private todoService:TodoService) { }
 
- // class method for toggling  AddTodoBox in todo-list.component.html
+ // class method for toggling  AddTodoBox in variable-list.component.html
   showAddTodoBox(e):void{
     e.preventDefault();
     this.todoService.showAddTodoBox = !this.todoService.showAddTodoBox;

@@ -13,6 +13,7 @@
       <ul class="nav navbar-nav">
         <li routerLinkActive="active"><a routerLink="/">Home</a></li>
         <li routerLinkActive="active"><a routerLink="/todos">Todos</a></li>
+        <li routerLinkActive="active"><a routerLink="/variables">Variáveis</a></li>
       </ul>
       <ul *ngIf="routeUrl == todos" class="nav navbar-nav navbar-right">
         <li><a (click)="showAddTodoBox($event)" href="#" >Add Todo</a></li>

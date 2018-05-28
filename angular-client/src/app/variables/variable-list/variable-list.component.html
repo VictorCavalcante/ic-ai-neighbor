@@ -1,0 +1,151 @@
+<div align="center" class="AddVariableBox">
+  <h4>New variable</h4>
+  <form (ngSubmit)="AddVariable(variable);variableForm.reset()" #variableForm="ngForm">
+    <div class="form-group">
+      <label for="variableText">Name:</label>
+      <input type="text" [(ngModel)]="variable.name" #variabletext="ngModel" class="form-control" name="variableText" required />
+      <div [hidden]="variabletext.valid || variabletext.pristine" class="alert alert-danger">
+        Variable is required
+      </div>
+    </div>
+
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="exampleRadios" (ngModelChange)="resetValues('NUMERIC')"
+             id="exampleRadios1" value="NUMERIC" [(ngModel)]="variable.type">
+      <label class="form-check-label" for="exampleRadios1">
+        NUMERIC
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="exampleRadios" (ngModelChange)="resetValues('MULTIVALUE')"
+             id="exampleRadios2" value="MULTIVALUE" [(ngModel)]="variable.type">
+      <label class="form-check-label" for="exampleRadios2">
+        MULTIVALUE
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="exampleRadios"
+             id="exampleRadios3" value="UNIVALUE" [ngModel]="variable.type" (ngModelChange)="resetValues('UNIVALUE')">
+      <label class="form-check-label" for="exampleRadios3">
+        UNIVALUE
+      </label>
+    </div>
+
+    <ul class="form-group" *ngIf="variable.type === 'MULTIVALUE' || variable.type === 'NUMERIC'">
+      <li class="input-group" *ngFor="let item of valuesList; let i = index" [attr.data-index]="i">
+        <input class="form-control" type="text" name="var-value-{{i}}" [(ngModel)]="item.value" required/>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" (click)="removeValue(i)">X</button>
+        </span>
+      </li>
+      <li>
+        <button type="button" class="btn btn-default" (click)="addMoreValues()">Add +</button>
+      </li>
+    </ul>
+
+    <button type="submit" [disabled]="!variableForm.form.valid" class="btn btn-success btn-block">Submit</button>
+  </form>
+</div>
+
+<div *ngIf="variables.length > 0" class="VariableListBox">
+  <h2 align="center">Your Variable's List</h2>
+  <table id="mytable" class="table table-bordred table-striped">
+
+    <thead>
+    <th>Variable</th>
+    <th>View</th>
+    <th>Edit</th>
+    <th>Delete</th>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let variable of variables">
+      <td>{{variable.name}}</td>
+      <td><a [routerLink]="['/variable', variable._id]" title="Click to Open {{variable.name}}">View</a></td>
+      <td>
+        <p data-placement="top" data-toggle="tooltip" title="Edit">
+          <button class="btn btn-primary btn-xs" (click)="showEditVariable(variable)" data-title="Edit" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-pencil"></span></button>
+        </p>
+      </td>
+      <td>
+        <p data-placement="top" data-toggle="tooltip" title="Delete">
+          <button class="btn btn-danger btn-xs" (click)="showDeleteVariable(variable)" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span></button>
+        </p>
+      </td>
+    </tr>
+
+    <tr>
+    </tbody>
+  </table>
+  <!-- Edit Modal -->
+  <div class="modal fade" id="edit" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Variable</h4>
+        </div>
+        <div class="modal-body">
+          <div align="center" class="EditVariableBox">
+            <form (ngSubmit)="EditVariable(variableToEdit)" #editVariableForm="ngForm">
+              <div class="form-group">
+                <label for="variableText">Variable:</label>
+                <input type="text" [(ngModel)]="variableToEdit.variableText" #variableedittext="ngModel" class="form-control" name="variableText" id="variableText" required />
+                <div [hidden]="variableedittext.valid || variableedittext.pristine" class="alert alert-danger">
+                  Variable is required
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="variableDesc">Description:</label>
+                <textarea class="form-control" [(ngModel)]="variableToEdit.variableDesc" #variableeditdesc="ngModel" name="variableDesc" id="variableDesc" required></textarea>
+                <div [hidden]="variableeditdesc.valid || variableeditdesc.pristine" class="alert alert-danger">
+                  Description is required
+                </div>
+              </div>
+
+              <button type="submit" [disabled]="!editVariableForm.form.valid || !editVariableForm.form.dirty" class="btn btn-success btn-block">Submit</button>
+            </form>
+            <div style="margin:10px;" *ngIf="apiMessage" align="center" class="alert alert-success" role="alert">
+              <strong>{{apiMessage}}</strong>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="delete" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Delete Variable</h4>
+        </div>
+        <div class="modal-body">
+          <div align="center" class="DeleteVariableBox">
+            <div *ngIf="!apiMessage" align="center" class="alert alert-danger" role="alert">
+              <p>Are you sure want to delete this variable?</p>
+              <strong>{{variableToDelete.variableText}}</strong>
+            </div>
+            <div style="margin:10px;" *ngIf="apiMessage" align="center" class="alert alert-success" role="alert">
+              <strong>{{variableToDelete.variableText}}</strong> {{apiMessage}}
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" *ngIf="!apiMessage" (click)="DeleteVariable(variableToDelete)">Confirm</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="variables.length <= 0" class="NoVariablesBox">
+  <div align="center" class="alert alert-info" role="alert">
+    <strong>No Variables Available in Database</strong>
+  </div>
+</div>
