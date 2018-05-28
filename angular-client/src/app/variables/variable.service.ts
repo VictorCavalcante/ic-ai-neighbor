@@ -5,7 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class VariableService {
-  private apiUrl = 'http://localhost:3001/api/';
+  private apiUrl = 'http://localhost:3001/variables/';
   showAddVariableBox:boolean = true;
 
   constructor(private http: Http){ }

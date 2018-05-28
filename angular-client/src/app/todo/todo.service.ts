@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class TodoService {
-  private apiUrl = 'http://localhost:3001/api/';
+  private apiUrl = 'http://localhost:3001/todos/';
   showAddTodoBox:boolean = true;
 
   constructor(private http: Http){ }
