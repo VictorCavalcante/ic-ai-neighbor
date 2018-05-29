@@ -14,25 +14,45 @@ export class VariableListComponent implements OnInit {
   fetchingData: boolean = false;
   apiMessage: string;
   valuesList: any[] = [];
+  editMode = false;
 
   constructor(private variableService: VariableService) { }
 
   ngOnInit(): void {
     this.variableService.showAddVariableBox = true;
-    // this.variableService.getVariables()
-    //   .then(td => this.variables = td.variables)
+    this.variableService.getVariables()
+      .then(td => this.variables = td.variables)
   }
 
-  AddVariable(variable: any): void {
+  addVariable(variable: any, variableForm: any): void {
     if (!variable) {
       return;
     }
-    this.resolveVariableValues();
-    this.variableService.createVariable(variable)
-      .then(td => {
-        console.log(td);
-        this.variables.push(td.variable);
-      })
+
+    if(this.editMode) {
+      variable.id = this.variable._id;
+      this.variableService.updateVariable(variable)
+        .then(td => {
+          const updatedVariables = this.variables.map(t => {
+            if (td.variable._id !== t._id) {
+              return t;
+            }
+            return {...t, ...td.variable};
+          });
+          this.apiMessage = td.message;
+          this.variables = updatedVariables;
+        })
+    } else {
+      this.resolveVariableValues();
+      this.variableService.createVariable(variable)
+        .then(td => {
+          console.log(td);
+          this.variables.push(td.variable);
+          variableForm.reset();
+          this.valuesList = [];
+        });
+
+    }
   }
 
   addMoreValues(): void {
@@ -58,27 +78,14 @@ export class VariableListComponent implements OnInit {
     this.valuesList.splice(index, 1);
   }
 
-  showEditVariable(variable: any): void {
-    this.variableToEdit = variable;
-    this.apiMessage = "";
+  toggleCreateMode(): void {
+    this.editMode = false;
   }
 
-  EditVariable(variable: any): void {
-    if (!variable) {
-      return;
-    }
-    variable.id = this.variableToEdit._id;
-    this.variableService.updateVariable(variable)
-      .then(td => {
-        const updatedVariables = this.variables.map(t => {
-          if (td.variable._id !== t._id) {
-            return t;
-          }
-          return {...t, ...td.variable};
-        });
-        this.apiMessage = td.message;
-        this.variables = updatedVariables;
-      })
+  toggleEditMode(variable: any): void {
+    this.editMode = true;
+    this.variable = variable;
+    this.apiMessage = "";
   }
 
   showDeleteVariable(variable: any): void {
@@ -86,7 +93,7 @@ export class VariableListComponent implements OnInit {
     this.apiMessage = "";
   }
 
-  DeleteVariable(variable: any): void {
+  deleteVariable(variable: any): void {
     if (!variable) {
       return;
     }

@@ -1,19 +1,37 @@
-.AddVariableBox{
-  width: 50%;
-  margin: 20px auto;
-  border: 2px solid #EE6E73;
-  padding: 10px;
+.addVariableBox {
+  /*margin: 20px auto;*/
+  /*border: 2px solid #d5d5d5;*/
+  /*padding: 20px;*/
 }
-.AddVariableBox h4{
-  background-color: #EE6E73;
-  color: white;
-  padding: 5px;
+.addVariableBox h3{
+  margin: 0 0 20px;
+}
+.addVariableBox form .form-group {
+  margin: 10px 0;
+}
+.addVariableBox form .form-group .add-more {
+  width: 150px;
+}
+.addVariableBox form .input-group {
+  margin: 10px 0;
 }
 
 .ng-valid[required], .ng-valid.required  {
-  border-left: 5px solid #42A948; /* green */
+  border-left: 3px solid #27b2a3; /* green */
 }
 
 .ng-invalid:not(form)  {
-  border-left: 5px solid #a94442; /* red */
+  border-left: 3px solid #ef4e72; /* red */
+}
+
+
+.items-list .items-header {
+  margin: 30px 0;
+}
+.items-header h2 {
+  margin: 0;
+  display: inline-block;
+}
+.items-header p {
+  float: right;
 }
