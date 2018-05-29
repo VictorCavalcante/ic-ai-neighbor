@@ -78,13 +78,17 @@ export class VariableListComponent implements OnInit {
     this.valuesList.splice(index, 1);
   }
 
-  toggleCreateMode(): void {
+  toggleCreateMode(variableForm): void {
+    variableForm.reset();
+    this.variable = {};
+    this.valuesList = [];
     this.editMode = false;
   }
 
   toggleEditMode(variable: any): void {
     this.editMode = true;
-    this.variable = variable;
+    this.variable = {...variable};
+    this.valuesList = variable.valueList.map(item => {return {value: item} });
     this.apiMessage = "";
   }
 

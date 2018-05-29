@@ -7,7 +7,7 @@
       <button class="btn btn-primary"
               data-title="Create"
               data-toggle="modal"
-              (click)="toggleCreateMode()"
+              (click)="toggleCreateMode(variableForm)"
               data-target="#createNew">
         Create new variable
       </button>
@@ -18,18 +18,18 @@
     <thead>
       <th>Variable</th>
       <th>View</th>
-      <!--<th>Edit</th>-->
+      <th>Edit</th>
       <th>Delete</th>
     </thead>
     <tbody>
       <tr *ngFor="let variable of variables">
         <td>{{variable.name}}</td>
         <td><a [routerLink]="['/variable', variable._id]" title="Click to Open {{variable.name}}">View</a></td>
-        <!--<td>-->
-          <!--<p data-placement="top" data-toggle="tooltip" title="Edit">-->
-            <!--<button class="btn btn-primary btn-xs" (click)="toggleEditMode(variable)" data-title="Edit" data-toggle="modal" data-target="#createNew"><span class="glyphicon glyphicon-pencil"></span></button>-->
-          <!--</p>-->
-        <!--</td>-->
+        <td>
+          <p data-placement="top" data-toggle="tooltip" title="Edit">
+            <button class="btn btn-primary btn-xs" (click)="toggleEditMode(variable)" data-title="Edit" data-toggle="modal" data-target="#createNew"><span class="glyphicon glyphicon-pencil"></span></button>
+          </p>
+        </td>
         <td>
           <p data-placement="top" data-toggle="tooltip" title="Delete">
             <button class="btn btn-danger btn-xs" (click)="showDeleteVariable(variable)" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span></button>
