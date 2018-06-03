@@ -1,7 +1,7 @@
 {
   "name": "express-server",
   "version": "1.0.0",
-  "description": "express server for mern todo app",
+  "description": "express server",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app_hooked.js"
@@ -13,7 +13,6 @@
   "keywords": [
     "express",
     "server",
-    "todo",
     "app"
   ],
   "author": "Bipin Swarnkar",

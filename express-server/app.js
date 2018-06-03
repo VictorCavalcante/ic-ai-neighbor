@@ -7,7 +7,6 @@ import SourceMapSupport from 'source-map-support';
 import bb from 'express-busboy';
 
 // import routes
-import todoRoutes from './routes/todo.server.route';
 import variablesRoutes from './routes/variable.server.route';
 
 // define our app using express
@@ -49,12 +48,11 @@ mongoose.connect('mongodb://localhost/ia-inference-db', {
 // add Source Map Support
 SourceMapSupport.install();
 
-app.use('/todos', todoRoutes);
 app.use('/variables', variablesRoutes);
 
 app.get('/', (req,res) => {
   return res.end('Api working');
-})
+});
 
 // catch 404
 app.use((req, res, next) => {
