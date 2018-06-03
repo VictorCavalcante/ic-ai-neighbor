@@ -9,7 +9,7 @@ import { VariableService } from '../variable.service';
 @Component({
   selector: 'app-variable-detail',
   templateUrl: './variable-detail.component.html',
-  styleUrls: ['./variable-detail.component.css']
+  styleUrls: ['./variable-detail.component.scss']
 })
 export class VariableDetailComponent implements OnInit {
   variable:any[]=[];
