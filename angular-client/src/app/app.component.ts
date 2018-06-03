@@ -1,7 +1,4 @@
-// ./angular-client/src/app/app.component.ts
 import {Component} from '@angular/core';
-
-import {TodoService} from './todo/todo.service';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +6,7 @@ import {TodoService} from './todo/todo.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-  constructor(private todoService:TodoService) { }
 
- // class method for toggling  AddTodoBox in variable-list.component.html
-  showAddTodoBox(e):void{
-    e.preventDefault();
-    this.todoService.showAddTodoBox = !this.todoService.showAddTodoBox;
-  }
+  constructor() { }
 
 }

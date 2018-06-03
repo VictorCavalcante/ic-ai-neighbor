@@ -1,7 +1,7 @@
 // ./angular-client/src/app/home.component.ts
 import { Component, OnInit } from '@angular/core';
 
-import { TodoService } from './todo/todo.service';
+import { VariableService } from './variables/variable.service';
 
 @Component({
   selector: 'my-home',
@@ -9,12 +9,12 @@ import { TodoService } from './todo/todo.service';
   styleUrls:[ './home.component.css' ]
 })
 export class HomePageComponent implements OnInit {
-  todos:any[] = [];
-  constructor(private todoService: TodoService) { }
+  variables:any[] = [];
+  constructor(private variableService: VariableService) { }
 
   ngOnInit(): void {
-     this.todoService.getTodos()
-                     .then(todos => this.todos = todos.todos.reverse().slice(0,3))
+     this.variableService.getVariables()
+       .then(variables => this.variables = variables.variables.reverse().slice(0,3))
   }
 
 }
