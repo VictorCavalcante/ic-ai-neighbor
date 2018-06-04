@@ -21,9 +21,9 @@ export class VariableDetailComponent implements OnInit {
   ) { }
 
   ngOnInit():void {
-    this.route.paramMap
-        .switchMap((params:ParamMap) => this.variableService.getVariable(params.get('id')))
-        .subscribe(td => this.variable =  td.variable[0])
+    // this.route.paramMap
+    //     .switchMap((params:ParamMap) => this.variableService.getVariable(params.get('id')))
+    //     .subscribe(td => this.variable =  td.variable[0])
   }
 
   goBack():void {
