@@ -5,30 +5,25 @@ const prompt = require('prompt');
 
 const csvFilePath = 'iris.csv'; // Data
 const names = ['sepalLength', 'sepalWidth', 'petalLength', 'petalWidth', 'type']; // For header
-
 let knn;
-let trainingSetX = [],
-    trainingSetY = [],
-    testSetX = [],
-    testSetY = [];
 
 initialize();
 
 function initialize() {
-    let dataset = [];
+    let rawDataset = [];
     let $getData = csv({ noheader: true, headers: names })
         .fromFile(csvFilePath)
-        .on('json', (jsonObj) => { dataset.push(jsonObj); }); // Push each object to data Array
+        .on('json', (jsonObj) => { rawDataset.push(jsonObj); }); // Push each object to data Array
 
     $getData.on('done', (error) => {
         // Prepare datasets (training_set & test_set)
-        let trainSize = 0.7 * dataset.length; // 70% of the dataset
-        divideDatasets(dataset, trainSize);
+        let trainSize = 0.7 * rawDataset.length; // 70% of the dataset
+        let datasets = divideDatasets(rawDataset, trainSize);
 
         // Train & Predict
-        const dataResult = trainAndPredict();
+        const dataResult = trainAndPredict(datasets);
 
-        testDataset(dataResult);
+        testDataset(datasets, dataResult);
         predict();
     });
 }
@@ -54,20 +49,26 @@ function divideDatasets(dataset, trainingSetSize) {
         Y_DATA.push(typeNumber);
     });
 
-    trainingSetX = X_DATA.slice(0, trainingSetSize);
-    trainingSetY = Y_DATA.slice(0, trainingSetSize);
-    testSetX = X_DATA.slice(trainingSetSize);
-    testSetY = Y_DATA.slice(trainingSetSize);
+    return {
+        training_set: {
+            X: X_DATA.slice(0, trainingSetSize),
+            Y: Y_DATA.slice(0, trainingSetSize)
+        },
+        test_set: {
+            X: X_DATA.slice(trainingSetSize),
+            Y: Y_DATA.slice(trainingSetSize)
+        }
+    };
 }
 
-function trainAndPredict() {
-    knn = new KNN(trainingSetX, trainingSetY, {k: 7});
-    return knn.predict(testSetX);
+function trainAndPredict(datasets) {
+    knn = new KNN(datasets.training_set.X, datasets.training_set.Y, {k: 7});
+    return knn.predict(datasets.test_set.X);
 }
 
-function testDataset(result) {
-    const testSetLength = testSetX.length;
-    const predictionError = error(result, testSetY);
+function testDataset(datasets, result) {
+    const testSetLength = datasets.test_set.X.length;
+    const predictionError = error(result, datasets.test_set.Y);
     console.log(`>>> Test Set Size = ${testSetLength}\n>>> Number of Misclassifications = ${predictionError}`);
 }
 
