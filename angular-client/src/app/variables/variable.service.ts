@@ -33,9 +33,8 @@ export class VariableService {
   }
 
 
-  trainAndTestCase(): Promise<any>{
-    var params = "?size=0&doors=5";
-    return this.http.get('http://localhost:3001/mlapi/training' + params)
+  testClassifierAccuracy(): Promise<any>{
+    return this.http.get('http://localhost:3001/mlapi/accuracy')
                .toPromise()
                .then(this.handleData)
                .catch(this.handleError)

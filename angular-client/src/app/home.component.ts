@@ -20,7 +20,7 @@ export class HomePageComponent implements OnInit {
   executeTest(): void {
     let params: any = [];
 
-    this.variableService.trainAndTestCase()
+    this.variableService.testClassifierAccuracy()
       .then(res => console.log(res));
   }
 

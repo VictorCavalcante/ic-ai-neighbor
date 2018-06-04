@@ -7,8 +7,11 @@ import * as mlAPIController from '../controllers/mlapi.server.controller';
 // get an instance of express router
 const router = express.Router();
 
-router.route('/training')
-     .get(mlAPIController.trainDataset);
+router.route('/accuracy')
+     .get(mlAPIController.testAccuracy);
+
+router.route('/predict')
+     .get(mlAPIController.predictType);
 
 
 export default router;
