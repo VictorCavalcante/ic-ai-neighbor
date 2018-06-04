@@ -3,9 +3,25 @@ const KNN = require('ml-knn');
 const csv = require('csvtojson');
 const prompt = require('prompt');
 
-const csvFilePath = 'iris.csv'; // Data
-const names = ['sepalLength', 'sepalWidth', 'petalLength', 'petalWidth', 'type']; // For header
+const csvFilePath = 'num_car_evaluation.csv'; // Data
+const names = ['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety', 'type']; // For header
 let knn;
+
+/*
+   buying       low, med, high, vhigh
+   maint        low, med, high, vhigh
+   doors        2, 3, 4, 5more
+   persons      2, 4, more
+   lug_boot     small, med, big
+   safety       low, med, high
+----------------------------------------
+   buying       0, 5, 10, 15
+   maint        0, 5, 10, 15
+   doors        2, 3, 4, 5
+   persons      2, 4, 5
+   lug_boot     0, 5, 10
+   safety       0, 5, 10
+*/
 
 initialize();
 
@@ -18,7 +34,7 @@ function initialize() {
     $getData.on('done', (error) => {
         // Prepare datasets (training_set & test_set)
         let trainSize = 0.7 * rawDataset.length; // 70% of the dataset
-        let datasets = divideDatasets(rawDataset, trainSize);
+        let datasets = divideDatasets(rawDataset, trainSize, 6);
 
         // Train & Predict
         const dataResult = trainAndPredict(datasets);
@@ -28,7 +44,7 @@ function initialize() {
     });
 }
 
-function divideDatasets(dataset, trainingSetSize) {
+function divideDatasets(dataset, trainingSetSize, numOfAttrs) {
     let typesList, typesSet = new Set();
     let X_DATA = [], Y_DATA = [];
 
@@ -38,12 +54,13 @@ function divideDatasets(dataset, trainingSetSize) {
     // Gathering unique classes & purging as an array
     dataset.forEach(row => typesSet.add(row.type));
     typesList = [ ...typesSet ];
+    console.log(`0 - ${typesList[0]} | 1 - ${typesList[1]} | 2 - ${typesList[2]} | 3 - ${typesList[3]} | `);
 
     // Turning string values to floats & converting headers to identifiers
     dataset.forEach(row => {
         let rowArray, typeNumber;
 
-        rowArray = Object.keys(row).map(key => parseFloat(row[key])).slice(0, 4);
+        rowArray = Object.keys(row).map(key => parseFloat(row[key])).slice(0, numOfAttrs);
         typeNumber = typesList.indexOf(row.type);
         X_DATA.push(rowArray);
         Y_DATA.push(typeNumber);
@@ -86,7 +103,7 @@ function predict() {
     let temp = [];
     prompt.start();
 
-    prompt.get(['Sepal Length', 'Sepal Width', 'Petal Length', 'Petal Width'], function (err, result) {
+    prompt.get(['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety'], function (err, result) {
         if (!err) {
             for (let key in result) {
                 if(result.hasOwnProperty(key)){
