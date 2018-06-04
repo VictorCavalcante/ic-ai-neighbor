@@ -32,6 +32,15 @@ export class VariableService {
                .catch(this.handleError)
   }
 
+
+  trainAndTestCase(): Promise<any>{
+    var params = "?size=0&doors=5";
+    return this.http.get('http://localhost:3001/mlapi/training' + params)
+               .toPromise()
+               .then(this.handleData)
+               .catch(this.handleError)
+  }
+
   updateVariable(variable:any):Promise<any>{
     return this.http
                .put(this.apiUrl, variable)

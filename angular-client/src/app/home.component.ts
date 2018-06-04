@@ -17,4 +17,12 @@ export class HomePageComponent implements OnInit {
        .then(variables => this.variables = variables.variables.reverse().slice(0,3))
   }
 
+  executeTest(): void {
+    let params: any = [];
+
+    this.variableService.trainAndTestCase()
+      .then(res => console.log(res));
+  }
+
+
 }

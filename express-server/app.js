@@ -1,4 +1,3 @@
-// ./express-server/app.js
 import express from 'express';
 import path from 'path';
 import logger from 'morgan';
@@ -6,11 +5,11 @@ import mongoose from 'mongoose';
 import SourceMapSupport from 'source-map-support';
 import bb from 'express-busboy';
 
-// import routes
 import variablesRoutes from './routes/variable.server.route';
+import machineLearningAPI from './routes/mlapi.server.route';
 
-// define our app using express
-const app = express();
+const app = express(); // define our app using express
+const port = process.env.PORT || 3001;
 
 // allow-cors
 app.use(function(req, res, next) {
@@ -24,20 +23,11 @@ app.use(function(req, res, next) {
         next();
     }
 });
-
 // express-busboy to parse multipart/form-data and x-www-form-urlencoded both
 bb.extend(app);
-
-
-
-
 // configure app
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-// set the port
-const port = process.env.PORT || 3001;
 
 // connect to database
 mongoose.Promise = global.Promise;
@@ -48,17 +38,19 @@ mongoose.connect('mongodb://localhost/ia-inference-db', {
 // add Source Map Support
 SourceMapSupport.install();
 
+/* API HOOK ----------------------------------*/
 app.use('/variables', variablesRoutes);
+app.use('/mlapi', machineLearningAPI);
 
 app.get('/', (req,res) => {
   return res.end('Api working');
 });
+/*--------------------------------------------*/
 
 // catch 404
 app.use((req, res, next) => {
   res.status(404).send('<h2 align=center>Page Not Found!</h2>');
 });
-
 // start the server
 app.listen(port,() => {
   console.log(`App Server Listening at ${port}`);
