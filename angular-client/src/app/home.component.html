@@ -6,28 +6,10 @@
     <hr>
     <h2>Latest Variables</h2>
 
-    <div class="latestTodos">
-      <div class="row">
-        <!-- Boxes  -->
-        <div *ngFor="let variable of variables" class="col-xs-12 col-sm-6 col-lg-4">
-          <div class="box">
-            <div class="icon">
-              <div class="image"><i class="fa fa-tasks"></i></div>
-              <div class="info">
-                <h3 class="title">{{variable.name}}</h3>
 
-                <div class="more">
-                  <a [routerLink]="['/variable', variable._id]" title="Click to Open {{variable.name}}">
-                    Read More <i class="fa fa-angle-double-right"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="space"></div>
-          </div>
-        </div>
-      </div>
       <button class="btn btn-default" (click)="executeTest()">Train</button>
-    </div>
+
+      Read list from CSV
+
   </div>
 </div>
