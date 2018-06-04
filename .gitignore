@@ -6,6 +6,7 @@
 # dependencies
 /angular-client/node_modules
 /express-server/node_modules
+/machine-learning/node_modules
 
 # IDEs and editors
 /.idea
