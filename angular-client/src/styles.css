@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css";
+@import "http://fonts.googleapis.com/css?family=Roboto:400,500";
+
 body {
   padding-top: 50px;
 }

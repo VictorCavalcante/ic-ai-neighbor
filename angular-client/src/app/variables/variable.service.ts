@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class VariableService {
@@ -29,6 +30,10 @@ export class VariableService {
       .toPromise()
       .then(this.handleData)
       .catch(this.handleError)
+  }
+
+  getCSVFile(): Observable<any> {
+    return this.http.get('assets/num_car_evaluation.csv');
   }
 
   private handleData(res: any) {

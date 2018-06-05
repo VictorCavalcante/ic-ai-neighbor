@@ -1,19 +1,4 @@
-.addVariableBox {
-  h3 {
-    margin: 0 0 20px;
-  }
-  form {
-    .form-group {
-      margin: 10px 0;
-      .add-more {
-        width: 150px;
-      }
-    }
-    .input-group {
-      margin: 10px 0;
-    }
-  }
-}
+@import '../../mixins';
 
 .ng-valid {
   &[required], &.required {
@@ -24,15 +9,14 @@
   border-left: 3px solid #ef4e72;
 }
 
-.items-list .items-header {
-  margin: 30px 0;
-}
-.items-header {
-  h2 {
-    margin: 0;
-    display: inline-block;
-  }
-  p {
-    float: right;
+// Default cards
+.clp-card-white {
+  @include box-shadow(0, 1px, 3px, #d0d0d0);
+  padding: 15px;
+
+  .card-title {
+    border-bottom: 1px solid #d6d6d6;
+    font-weight: 600;
+    padding-bottom: 7px;
   }
 }

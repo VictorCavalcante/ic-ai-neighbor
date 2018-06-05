@@ -4,12 +4,30 @@
     <h1>AI-Neighbor - Car Evaluation System</h1>
     <p class="lead">Computer system that emulates the decision-making ability of a human expert.</p>
     <hr>
-    <h2>Latest Variables</h2>
+    <h2>Car Evaluation Data Set</h2>
 
-
-      <button class="btn btn-default" (click)="executeTest()">Train</button>
-
-      Read list from CSV
+    <div class="table-wrapper clp-card-white">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>buying</th>
+          <th>maint</th>
+          <th>doors</th>
+          <th>persons</th>
+          <th>lug_boot</th>
+          <th>safety</th>
+          <th class="result-cell">type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let row of tableOfItems">
+          <td *ngFor="let items of row">
+            {{items}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
   </div>
 </div>

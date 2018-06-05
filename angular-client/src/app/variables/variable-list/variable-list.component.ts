@@ -7,12 +7,11 @@ import {VariableService} from '../variable.service';
   styleUrls: ['./variable-list.component.scss']
 })
 export class VariableListComponent implements OnInit {
+  analysisResult: any;
 
-  constructor(private variableService: VariableService) {
-  }
+  constructor(private variableService: VariableService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   submitPredictionForm(): void {
     const mockObj = {
@@ -27,6 +26,13 @@ export class VariableListComponent implements OnInit {
       .then(response => {
         console.log(response);
       })
+  }
+
+  executeTest(): void {
+    let params: any = [];
+
+    this.variableService.testClassifierAccuracy()
+      .then(result => this.analysisResult = result.response);
   }
 
 }

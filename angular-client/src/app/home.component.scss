@@ -1,0 +1,28 @@
+@import './mixins';
+
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+  .table-wrapper {
+    height: 600px;
+    overflow: auto;
+    th {
+      background-color: #27b2a3;
+      &.result-cell {
+        background-color: #0096ae;
+      }
+    }
+  }
+}
+
+// Default cards
+.clp-card-white {
+  @include box-shadow(0, 1px, 3px, #d0d0d0);
+  padding: 15px;
+
+  .card-title {
+    border-bottom: 1px solid #d6d6d6;
+    font-weight: 600;
+    padding-bottom: 7px;
+  }
+}

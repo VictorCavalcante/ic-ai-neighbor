@@ -1,4 +1,19 @@
-Create <strong>form</strong> to predict
+<div class="classifier-execution">
+
+  Create <strong>form</strong> to predict
 
 
-<button class="btn btn-default" (click)="submitPredictionForm()">Train</button>
+  <button class="btn btn-default" (click)="submitPredictionForm()">Train</button>
+
+
+  <button class="btn btn-default" (click)="executeTest()">Test Classifier Accuracy</button>
+  <div class="clp-card-white">
+    <div class="card-title">Analysis Result:</div>
+    {{analysisResult?.successRate}}
+    {{analysisResult?.testSetSize}}
+    {{analysisResult?.wrongPredictions}}
+  </div>
+
+
+</div>
+
