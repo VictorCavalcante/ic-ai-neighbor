@@ -21,6 +21,7 @@ export const predictType = (req,res) => {
     predValues.push(req.query.safety);
 
     console.log(predValues);
+
     ClassifierTrainer.predictWithClassifier(predValues)
         .then(function(result) {
             return res.status(200).send(

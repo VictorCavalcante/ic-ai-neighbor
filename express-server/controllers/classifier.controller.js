@@ -5,6 +5,7 @@ const Promise = require("bluebird");
 
 const csvFilePath = 'num_car_evaluation.csv'; // Data
 const names = ['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety', 'type']; // Data Header
+const dataNumOfAttrs = 6;
 let knnClassifier;
 
 /*
@@ -34,7 +35,7 @@ export const testClassifierAccuracy = () => {
         $importDataset
             .on('done', (error) => {
                 // Prepare datasets: X_DATA  and  Y_DATA
-                let partitionedData = getFeaturesAndLabels(completeDataset, 6); //todo replace '6'
+                let partitionedData = getFeaturesAndLabels(completeDataset, dataNumOfAttrs);
 
                 // Split up datasets into "training_data" & "testing_data"
                 let trainSize = 0.7 * completeDataset.length; // 70% of the dataset
@@ -72,7 +73,7 @@ export const predictWithClassifier = (paramList) => {
         $importDataset
             .on('done', (error) => {
                 // Prepare datasets: X_DATA  and  Y_DATA  and typesList
-                let partitionedData = getFeaturesAndLabels(completeDataset, 6); //todo replace '6'
+                let partitionedData = getFeaturesAndLabels(completeDataset, dataNumOfAttrs);
 
                 // Create decision tree classifier & train it
                 knnClassifier = new KNN(partitionedData.X_DATA, partitionedData.Y_DATA, {k: 7});
