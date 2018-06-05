@@ -44,6 +44,13 @@ section {
     }
   }
 
+  form {
+    margin-bottom: 80px;
+    .row {
+      padding: 15px;
+    }
+  }
+
   .result-section {
     margin-top: 20px;
     padding-top: 20px;
@@ -60,6 +67,13 @@ section {
       &.active {
         border-bottom-color: #27b2a3;;
       }
+    }
+  }
+
+  .desc-section {
+    .list-title {
+      font-weight: 600;
+      margin: 10px 0 5px;
     }
   }
 

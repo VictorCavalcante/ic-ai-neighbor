@@ -8,7 +8,7 @@
     <div class="col-md-8">
       <div class="card-title">Accuracy test</div>
       <div class="clp-card-white">
-        <button type="button" class="btn btn-default btn-lg" (click)="executeTest()">Test Accuracy</button>
+        <button type="button" class="btn btn-default btn-lg" (click)="executeTest()">Test accuracy</button>
 
         <div class="boxes-wrapper">
           <div class="spec-box blue-b">
@@ -34,7 +34,7 @@
         <form #predictForm="ngForm" class="clp-default-form" novalidate>
           <div class="row">
             <div class="form-group col-md-4">
-              <label for="PFbuying">Buying</label>
+              <label for="PFbuying">Buying price</label>
               <select name="PFbuying" id="PFbuying" class="form-control"
                       [(ngModel)]="predictionModel.buying" required>
                 <option value="0">0 - low</option>
@@ -45,7 +45,7 @@
             </div>
 
             <div class="form-group col-md-4">
-              <label for="PFmaint">maint</label>
+              <label for="PFmaint">Maintenance price</label>
               <select name="PFmaint" id="PFmaint" class="form-control"
                       [(ngModel)]="predictionModel.maint" required>
                 <option value="0">0 - low</option>
@@ -56,7 +56,7 @@
             </div>
 
             <div class="form-group col-md-4">
-              <label for="PFdoors">doors</label>
+              <label for="PFdoors">Nº of doors</label>
               <select name="PFdoors" id="PFdoors" class="form-control"
                       [(ngModel)]="predictionModel.doors" required>
                 <option value="2">2</option>
@@ -69,7 +69,7 @@
 
           <div class="row">
             <div class="form-group col-md-4">
-              <label for="PFpersons">persons</label>
+              <label for="PFpersons">Capacity (people)</label>
               <select name="PFpersons" id="PFpersons" class="form-control"
                       [(ngModel)]="predictionModel.persons" required>
                 <option value="2">2</option>
@@ -79,7 +79,7 @@
             </div>
 
             <div class="form-group col-md-4">
-              <label for="PFlug_boot">lug_boot</label>
+              <label for="PFlug_boot">Luggage Boot size</label>
               <select name="PFlug_boot" id="PFlug_boot" class="form-control"
                       [(ngModel)]="predictionModel.lug_boot" required>
                 <option value="0">0 - small</option>
@@ -89,7 +89,7 @@
             </div>
 
             <div class="form-group col-md-4">
-              <label for="PFsafety">safety</label>
+              <label for="PFsafety">Safety Level</label>
               <select name="PFsafety" id="PFsafety" class="form-control"
                       [(ngModel)]="predictionModel.safety" required>
                 <option value="0">0 - low</option>
@@ -113,8 +113,45 @@
       </div>
     </div>
 
-    <div class="col-md-4">
-      INFO
+    <div class="col-md-4 desc-section">
+      <div class="card-title">Dataset Information</div>
+      <div class="clp-card-white">
+        The model evaluates cars according to the following concept structure:
+        <div class="list-title">Goal - Car acceptability</div>
+        <ul>
+          <li>unacc: Unacceptable</li>
+          <li>acc: Acceptable</li>
+          <li>good: Good</li>
+          <li>vgood: Very Good</li>
+        </ul>
+
+        <div class="list-title">Variables</div>
+        <ul>
+          <li>buying: Buying price</li>
+          <li>maint: Maintenance price</li>
+          <li>doors: Number of doors</li>
+          <li>people: Capacity (people)</li>
+          <li>lug_boot: Luggage Boot size</li>
+          <li>safety: Safety Level</li>
+        </ul>
+      </div>
+      <div class="card-title">Attribute Information:</div>
+      <div class="clp-card-white">
+        <div class="list-title">Class Values:</div>
+        <ul>
+          <li>type: unacc, acc, good, vgood</li>
+        </ul>
+
+        <div class="list-title">Attributes:</div>
+        <ul>
+          <li>buying: vhigh, high, med, low.</li>
+          <li>maint: vhigh, high, med, low.</li>
+          <li>doors: 2, 3, 4, 5more.</li>
+          <li>persons: 2, 4, more.</li>
+          <li>lug_boot: small, med, big.</li>
+          <li>safety: low, med, high.</li>
+        </ul>
+      </div>
     </div>
   </section>
 
