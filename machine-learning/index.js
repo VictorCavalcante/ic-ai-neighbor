@@ -1,7 +1,7 @@
 'use strict';
-const KNN = require('ml-knn');
 const csv = require('csvtojson');
 const prompt = require('prompt');
+const KNN = require('./KNNClassifier');
 
 const csvFilePath = 'num_car_evaluation.csv'; // Data
 const names = ['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety', 'type']; // For header
