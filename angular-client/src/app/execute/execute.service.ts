@@ -17,16 +17,7 @@ export class ExecuteService {
   }
 
   predictWithClassifier(urlParams): Promise<any>{
-    const params = [
-      { 'buying': urlParams.buying },
-      { 'maint': urlParams.maint },
-      { 'doors': urlParams.doors },
-      { 'persons': urlParams.persons },
-      { 'lug_boot': urlParams.lug_boot },
-      { 'safety': urlParams.safety }
-    ];
-
-    return this.http.get(this.apiUrl + 'predict',{ params })
+    return this.http.get(this.apiUrl + 'predict',{ params: urlParams })
       .toPromise()
       .then(this.handleData)
       .catch(this.handleError)

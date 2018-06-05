@@ -13,10 +13,6 @@ export const testAccuracy = (req,res) => {
 
 export const predictType = (req,res) => {
     let predValues = [];
-
-    console.log(req.query);
-
-    // todo get this correctly
     predValues.push(req.query.buying);
     predValues.push(req.query.maint);
     predValues.push(req.query.doors);
@@ -25,7 +21,6 @@ export const predictType = (req,res) => {
     predValues.push(req.query.safety);
 
     console.log(predValues);
-
     ClassifierTrainer.predictWithClassifier(predValues)
         .then(function(result) {
             return res.status(200).send(
