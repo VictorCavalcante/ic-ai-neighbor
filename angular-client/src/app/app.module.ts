@@ -7,25 +7,25 @@ import { AppComponent } from './app.component';
 import { HomePageComponent } from './home.component';
 
 import { AppRoutingModule } from './app-routing.module';
-import { VariableService} from "./variables/variable.service";
-import { VariableRoutingModule } from "./variables/variable-routing/variable-routing.module";
-import { VariableListComponent } from "./variables/variable-list/variable-list.component";
+import { ExecuteService} from "./execute/execute.service";
+import { ExecuteRoutingModule } from "./execute/execute-routing.module";
+import { ExecuteComponent } from "./execute/execute.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    VariableListComponent
+    ExecuteComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpModule,
-    VariableRoutingModule,
+    ExecuteRoutingModule,
     FormsModule
   ],
   providers: [
-    VariableService
+    ExecuteService
   ],
   bootstrap: [AppComponent]
 })

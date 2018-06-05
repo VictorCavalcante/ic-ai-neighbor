@@ -1,0 +1,66 @@
+@import '../mixins';
+
+.ng-valid {
+  &[required], &.required {
+    border-left: 3px solid #27b2a3;
+  }
+}
+.ng-invalid:not(form) {
+  border-left: 3px solid #ef4e72;
+  border-left: 3px solid #BBB;
+}
+
+// Default cards
+.clp-card-white {
+  @include box-shadow(0, 1px, 3px, #d0d0d0);
+  padding: 15px;
+  background-color: #f0f0f0;
+}
+
+section {
+  .card-title {
+    color: #999;
+    font-weight: 600;
+    margin: 15px 0;
+  }
+  .boxes-wrapper {
+    float: right;
+  }
+  .spec-box {
+    font-weight: 600;
+    height: 46px;
+    padding: 3px 14px;
+    text-align: center;
+    display: inline-block;
+    color: #fff;
+    border-radius: 3px;
+    margin-left: 5px;
+
+    &.blue-b { background-color: #00b0d1 }
+    &.orange-b { background-color: #ef4e72 }
+    &.green-b { background-color: #27b2a3 }
+    .spec-result {
+      font-size: 16px;
+    }
+  }
+
+  .result-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #DDD;
+
+    .prediction-result {
+      float: right;
+      height: 46px;
+      text-align: center;
+      min-width: 290px;
+      border-bottom: 2px solid #BBB;
+      font-size: 23px;
+      line-height: 2;
+      &.active {
+        border-bottom-color: #27b2a3;;
+      }
+    }
+  }
+
+}

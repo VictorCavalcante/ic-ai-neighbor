@@ -4,7 +4,7 @@ import 'rxjs/add/operator/toPromise';
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
-export class VariableService {
+export class ExecuteService {
   private apiUrl = 'http://localhost:3001/mlapi/';
 
   constructor(private http: Http){ }

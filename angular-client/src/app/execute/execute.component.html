@@ -1,0 +1,123 @@
+<div class="classifier-execution">
+
+  <h2 class="lead">Testing Classifier Data</h2>
+  <hr>
+
+  <section class="row">
+
+    <div class="col-md-8">
+      <div class="card-title">Accuracy test</div>
+      <div class="clp-card-white">
+        <button type="button" class="btn btn-default btn-lg" (click)="executeTest()">Test Accuracy</button>
+
+        <div class="boxes-wrapper">
+          <div class="spec-box blue-b">
+            <div>Test set size</div>
+            <div class="spec-result">{{analysisResult?.testSetSize || "--"}}</div>
+          </div>
+
+          <div class="spec-box orange-b">
+            <div>Wrong predictions</div>
+            <div class="spec-result">{{analysisResult?.wrongPredictions || "--"}}</div>
+          </div>
+
+          <div class="spec-box green-b">
+            <div>Success rate</div>
+            <div class="spec-result">{{analysisResult?.successRate}} %</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-title">Type prediction test</div>
+      <div class="clp-card-white">
+
+        <form #predictForm="ngForm" class="clp-default-form" novalidate>
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label for="PFbuying">Buying</label>
+              <select name="PFbuying" id="PFbuying" class="form-control"
+                      [(ngModel)]="predictionModel.buying" required>
+                <option value="0">0 - low</option>
+                <option value="5">5 - med</option>
+                <option value="10">10 - high</option>
+                <option value="15">15 - vhigh</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="PFmaint">maint</label>
+              <select name="PFmaint" id="PFmaint" class="form-control"
+                      [(ngModel)]="predictionModel.maint" required>
+                <option value="0">0 - low</option>
+                <option value="5">5 - med</option>
+                <option value="10">10 - high</option>
+                <option value="15">15 - vhigh</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="PFdoors">doors</label>
+              <select name="PFdoors" id="PFdoors" class="form-control"
+                      [(ngModel)]="predictionModel.doors" required>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5+</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label for="PFpersons">persons</label>
+              <select name="PFpersons" id="PFpersons" class="form-control"
+                      [(ngModel)]="predictionModel.persons" required>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="5">5+</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="PFlug_boot">lug_boot</label>
+              <select name="PFlug_boot" id="PFlug_boot" class="form-control"
+                      [(ngModel)]="predictionModel.lug_boot" required>
+                <option value="0">0 - small</option>
+                <option value="5">5 - med</option>
+                <option value="10">10 - big</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="PFsafety">safety</label>
+              <select name="PFsafety" id="PFsafety" class="form-control"
+                      [(ngModel)]="predictionModel.safety" required>
+                <option value="0">0 - low</option>
+                <option value="5">5 - med</option>
+                <option value="10">10 - high</option>
+              </select>
+            </div>
+          </div>
+        </form>
+
+        <div class="result-section">
+          <button type="button"
+                  class="btn btn-default btn-lg"
+                  (click)="submitPredictionForm()"
+                  [disabled]="!predictForm.form.valid">
+            Predict type
+          </button>
+          <div class="prediction-result" [ngClass]="{'active': predictionResult}">{{predictionResult}}</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      INFO
+    </div>
+  </section>
+
+
+</div>
+

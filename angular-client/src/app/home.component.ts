@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { VariableService } from './variables/variable.service';
+import { ExecuteService } from './execute/execute.service';
 
 @Component({
   selector: 'my-home',
@@ -10,11 +10,11 @@ import { VariableService } from './variables/variable.service';
 export class HomePageComponent implements OnInit {
   tableOfItems:any[] = [];
 
-  constructor(private variableService: VariableService) { }
+  constructor(private executeService: ExecuteService) { }
 
   ngOnInit(): void {
 
-    this.variableService.getCSVFile()
+    this.executeService.getCSVFile()
       .subscribe(
         data => {
           let response = data._body;
