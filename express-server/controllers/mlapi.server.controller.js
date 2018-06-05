@@ -1,12 +1,8 @@
-import mongoose from 'mongoose';
-
-//import models
-import Variable from '../models/variable.server.model';
-import * as MlTrainer from './ml-trainer.controller.js';
+import * as ClassifierTrainer from './classifier.controller.js';
 
 export const testAccuracy = (req,res) => {
 
-    MlTrainer.testClassifierAccuracy()
+    ClassifierTrainer.testClassifierAccuracy()
         .then(function(result) {
             return res.status(200).send(
                 JSON.stringify({success:true, response: result})
@@ -30,7 +26,7 @@ export const predictType = (req,res) => {
 
     console.log(predValues);
 
-    MlTrainer.predictWithClassifier(predValues)
+    ClassifierTrainer.predictWithClassifier(predValues)
         .then(function(result) {
             return res.status(200).send(
                 JSON.stringify({success:true, response: result})

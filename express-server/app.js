@@ -1,11 +1,9 @@
 import express from 'express';
 import path from 'path';
 import logger from 'morgan';
-import mongoose from 'mongoose';
 import SourceMapSupport from 'source-map-support';
 import bb from 'express-busboy';
 
-import variablesRoutes from './routes/variable.server.route';
 import machineLearningAPI from './routes/mlapi.server.route';
 
 const app = express(); // define our app using express
@@ -29,17 +27,10 @@ bb.extend(app);
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// connect to database
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/ia-inference-db', {
-  useMongoClient: true,
-});
-
 // add Source Map Support
 SourceMapSupport.install();
 
 /* API HOOK ----------------------------------*/
-app.use('/variables', variablesRoutes);
 app.use('/mlapi', machineLearningAPI);
 
 app.get('/', (req,res) => {
