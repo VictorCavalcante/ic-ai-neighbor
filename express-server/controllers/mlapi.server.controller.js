@@ -16,12 +16,26 @@ export const testAccuracy = (req,res) => {
 };
 
 export const predictType = (req,res) => {
+    let predValues = [];
+
     console.log(req.query);
 
-    // let message = MlTrainer.predictWithClassifier();
-    // console.log(message);
+    // todo get this correctly
+    predValues.push(req.query.buying);
+    predValues.push(req.query.maint);
+    predValues.push(req.query.doors);
+    predValues.push(req.query.persons);
+    predValues.push(req.query.lug_boot);
+    predValues.push(req.query.safety);
 
-    return res.status(200).send(JSON.stringify({success:true, message:'yeeeha'}));
+    console.log(predValues);
+
+    MlTrainer.predictWithClassifier(predValues)
+        .then(function(result) {
+            return res.status(200).send(
+                JSON.stringify({success:true, response: result})
+            );
+        });
 };
 
 

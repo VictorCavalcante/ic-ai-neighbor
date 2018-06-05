@@ -61,28 +61,37 @@ export const testClassifierAccuracy = () => {
 };
 
 export const predictWithClassifier = (paramList) => {
-    // Importing Dataset
-    let completeDataset = [];
-    let $importDataset = csv({ noheader: true, headers: names })
-        .fromFile(csvFilePath)
-        .on('json', (jsonObj) => { completeDataset.push(jsonObj); }); // Push each object to data Array
+    return new Promise(function(resolve, reject) {
+        // Importing Dataset
+        let completeDataset = [];
+        let $importDataset = csv({ noheader: true, headers: names })
+            .fromFile(csvFilePath)
+            .on('json', (jsonObj) => { completeDataset.push(jsonObj); }); // Push each object to data Array
 
-    let parsedList = paramList.map(val => parseFloat(val));
+        let parsedList = paramList.map(val => parseFloat(val));
 
-    $importDataset
-        .on('done', (error) => {
-            // Prepare datasets: X_DATA  and  Y_DATA  and typesList
-            let partitionedData = getFeaturesAndLabels(completeDataset, 6); //todo replace '6'
+        $importDataset
+            .on('done', (error) => {
+                // Prepare datasets: X_DATA  and  Y_DATA  and typesList
+                let partitionedData = getFeaturesAndLabels(completeDataset, 6); //todo replace '6'
 
-            // Create decision tree classifier & train it
-            knnClassifier = new KNN(partitionedData.X_DATA, partitionedData.Y_DATA, {k: 7});
+                // Create decision tree classifier & train it
+                knnClassifier = new KNN(partitionedData.X_DATA, partitionedData.Y_DATA, {k: 7});
 
-            // Predict custom entry
-            const predictionResult = knnClassifier.predict(parsedList);
+                // Predict custom entry
+                const predictionResult = knnClassifier.predict(parsedList);
 
-            console.log(`With ${parsedList} -- type =  ${predictionResult}`);
-            return { result: predictionResult, types: partitionedData.typesList };
-        });
+                console.log(`With ${parsedList} -- type =  ${predictionResult}`);
+                resolve({ result: predictionResult, types: partitionedData.typesList });
+            });
+
+        $importDataset
+            .on("error", function(e) {
+                // If it failed connecting, mark it
+                // as rejected.
+                reject(e); //  e is preferably an `Error`
+            });
+    });
 };
 
 function getFeaturesAndLabels(dataset, numOfAttrs) {
